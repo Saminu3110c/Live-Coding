@@ -1,0 +1,45 @@
+#include <iostream>
+
+using namespace std;
+class Process{
+public:
+    int Arrival_Time;
+    int Turnaround_Time;
+    int Burst_Time;
+    int Completion_Time;
+    int Waiting_Time;
+};
+
+int main()
+{
+    int Number_of_Process, i;
+    double Total_waitingTime, Total_TurnaroundTime, Average_TurnaroundTime, Average_waitingTime;
+    cout << "Enter the number of process: ";
+    cin >> Number_of_Process;
+    Process P[Number_of_Process];
+    P[i-1].Completion_Time=0;
+    for(i = 0; i<Number_of_Process; i++){
+        P[i].Arrival_Time=0;
+        cout << "Enter the Burst Time of process " << i<<":";
+        cin >> P[i].Burst_Time;
+        P[i].Completion_Time=P[i-1].Completion_Time + P[i].Burst_Time;
+        P[i].Turnaround_Time = P[i].Completion_Time - P[i].Arrival_Time;
+        P[i].Waiting_Time =  P[i].Turnaround_Time - P[i].Burst_Time;
+        Total_waitingTime+=P[i].Waiting_Time;
+        Total_TurnaroundTime+=P[i].Turnaround_Time;
+    }
+    Average_TurnaroundTime=Total_TurnaroundTime/Number_of_Process;
+    Average_waitingTime=Total_waitingTime/Number_of_Process;
+        cout << "|PR|AT| BT| CT|TAT|WT|" << endl;
+     for(i = 0; i<Number_of_Process; i++){
+        cout << "|P" << i <<"| "<< P[i].Arrival_Time <<"| "<<P[i].Burst_Time <<"| "<<P[i].Completion_Time <<"| " <<P[i].Turnaround_Time <<"| "<<P[i].Waiting_Time <<"|"<< endl;
+     }
+     cout << endl;
+     cout <<"Total Waiting Time: "<<Total_waitingTime<<endl;
+     cout <<"Average waiting time: "<< Average_waitingTime<<endl;
+     cout <<endl;
+     cout <<"Total turnaround time: "<<Total_TurnaroundTime<<endl;
+     cout <<"Average turnaround time: "<<Average_TurnaroundTime<<endl;
+
+    return 0;
+}
